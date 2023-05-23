@@ -1,0 +1,30 @@
+
+server:
+  port: 8000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: patientservice
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/api/patient/**
+        - id: prescriptionservice
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/api/prescription/**
+        - id: adminstratorservice
+          uri: http://localhost:8083/
+          predicates:
+            - Path=/api/adminstrator/**
+
